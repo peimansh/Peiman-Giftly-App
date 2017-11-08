@@ -12,6 +12,9 @@ public class Event {
 	}
 	
 	public void getEventDetails() {
+		/**
+		 * Print the details of an event.
+		 */
 		System.out.println ("The event : "+description+" will be on : "+date+" and the address is : "+address+".");
 	}
 	
