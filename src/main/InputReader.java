@@ -7,6 +7,7 @@ public class InputReader {
 	
 	public InputReader() {
 		reader = new Scanner(System.in);
+		
 	}
 	
 	public void welcomeMsg() {
