@@ -4,10 +4,11 @@ import java.util.Scanner;
 
 public class InputReader {
 	private Scanner reader;
+	private CommandWords commands;
 	
 	public InputReader() {
 		reader = new Scanner(System.in);
-		
+		commands = new CommandWords;
 	}
 	
 	public void welcomeMsg() {
@@ -21,5 +22,12 @@ public class InputReader {
 		System.out.println("2- Delete a contact");
 		System.out.println("3- Show list of contacts");
 		System.out.println("4- Quit");
+		
+		if
+	}
+	
+	public void addcontactMsg() {
+		System.out.println("Enter the name of the contact");
+		private Contact contacts();
 	}
 }
