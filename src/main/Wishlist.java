@@ -9,8 +9,16 @@ public class Wishlist {
 		this.wishprice = wishprice;
 	}
 	
-	public void getWishlistDetails( ) {
-		System.out.println("The "+wishname+" costs "+wishprice+".");
+	public String getWishlistDetails( ) {
+		return ("The "+wishname+" costs "+wishprice+".");
+	}
+	
+	public int getWishPrice() {
+		return wishprice;
+	}
+	
+	public String getWishName( ) {
+		return wishname;
 	}
 		
 }

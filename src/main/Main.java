@@ -1,5 +1,7 @@
 package main;
 
+import java.util.ArrayList;
+
 public class Main {
 	private ArrayList <Contact> contacts;
 	
@@ -14,8 +16,7 @@ public class Main {
 	start.welcomeMsg();
 	}
 	
-	public void addContact(String contactN) {
-		contacts.add(contactN);
+	public void addContact(Contact contactN) {
 	}
 
 }

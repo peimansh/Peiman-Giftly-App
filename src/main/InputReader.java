@@ -1,17 +1,22 @@
 package main;
 
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class InputReader {
 	private Scanner reader;
 	private CommandWords commands;
+	private ArrayList<Contact> contacts;
+	private ArrayList<Wishlist> wishlists;
 	
 	public InputReader() {
 		reader = new Scanner(System.in);
-		commands = new CommandWords;
+		commands = new CommandWords();
 	}
 	
-	public void welcomeMsg() {
+	public void welcomeMsg() throws IOException {
+		boolean b = true;
 		System.out.println("Welcome to the Gift Management app - Giftly .");
 		System.out.println("This App let's you add your loved ones as contacts to the app and add ");
 		System.out.println("the items they like to have as wish list and add some important");
@@ -23,11 +28,65 @@ public class InputReader {
 		System.out.println("3- Show list of contacts");
 		System.out.println("4- Quit");
 		
-		if
-	}
+		while (b) {
+            try {    
+                int n = Integer.parseInt(reader.nextLine());
+                if (n>0&&n<5) {
+                    b = false;
+                    if(n==1){
+                    	addcontactMsg() ;
+                    }
+                    else if(n==2){
+                    	printCD();
+                    }
+                    else if(n==3){
+                    	System.out.println("choose the song track that you want to delete"); 
+                    	Scanner scanner = new Scanner(System.in); 
+                    	 int N = scanner.nextInt(); 
+                    	deleteSong(N);
+                    }
+                    else if(n==4){
+                    	Save();
+                    }
+                } else {
+                    System.out.println(n + " Isn't a valid option... please enter a number between 1 and 5");
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("Enter a number between 1 to 5 please...");    
+            }
+        }        
+    }
+			
 	
 	public void addcontactMsg() {
-		System.out.println("Enter the name of the contact");
-		private Contact contacts();
+		System.out.println("Enter the name of the contact:");
+		String contactN  = reader.nextLine();
+		Contact contact = new Contact(contactN);
+		contacts.add(contact);
+		System.out.println("1-Enter the person interest\n2-Enter event for the person");
+		boolean a = true;
+		while (a) {
+			try {
+				int n = Integer.parseInt(reader.nextLine());
+                if (n>0&&n<3) {
+                    a = false;
+                    if(n==1){
+                    	System.out.println("Enter the description of the interest item");
+                    	String wishname  = reader.nextLine();
+                    	System.out.println("Enter the estimated price of the item");
+                    	String price = reader.nextLine();
+                    	int wishprice = Integer.parseInt(price);
+                    	Wishlist wishlist = new Wishlist(wishname, wishprice);
+                    	wishlists.add(wishlist);
+                    }
+                    else if(n==2){
+                    	printCD();
+                    }
+                    else {
+                    	System.out.println(n + " Isn't a valid option... please enter a number between 1 and 2");
+                    	}    
+                    }
+			}
+		}
 	}
 }

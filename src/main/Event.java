@@ -11,12 +11,14 @@ public class Event {
 		this.address = address;
 	}
 	
-	public void getEventDetails() {
+	public String getEventDetails() {
 		/**
 		 * Print the details of an event.
 		 */
-		System.out.println ("The event : "+description+" will be on : "+date+" and the address is : "+address+".");
+		return ("The event : "+description+" will be on : "+date+" and the address is : "+address+".");
 	}
+	
+	
 	
 	public void changeDescription(String newdescription) {
 		this.description = newdescription;
