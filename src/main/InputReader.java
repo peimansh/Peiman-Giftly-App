@@ -26,33 +26,35 @@ public class InputReader {
 		System.out.println("1- Add a contact");
 		System.out.println("2- Delete a contact");
 		System.out.println("3- Show list of contacts");
-		System.out.println("4- Quit");
+		System.out.println("4- Save the info to a file");
+		System.out.println("5- Load the info from file");
+		System.out.println("6- Quit");
 		
 		while (b) {
             try {    
                 int n = Integer.parseInt(reader.nextLine());
-                if (n>0&&n<5) {
+                if (n>0&&n<7) {
                     b = false;
                     if(n==1){
                     	addcontactMsg() ;
                     }
                     else if(n==2){
-                    	printCD();
+                    	
                     }
                     else if(n==3){
                     	System.out.println("choose the song track that you want to delete"); 
                     	Scanner scanner = new Scanner(System.in); 
                     	 int N = scanner.nextInt(); 
-                    	deleteSong(N);
+                    	;
                     }
                     else if(n==4){
-                    	Save();
+                    	;
                     }
                 } else {
                     System.out.println(n + " Isn't a valid option... please enter a number between 1 and 5");
                 }
             } catch (NumberFormatException e) {
-                System.out.println("Enter a number between 1 to 5 please...");    
+                System.out.println("Enter a number between 1 to 6 please...");    
             }
         }        
     }
@@ -80,13 +82,21 @@ public class InputReader {
                     	wishlists.add(wishlist);
                     }
                     else if(n==2){
-                    	printCD();
+                    	System.out.println("Enter the description of the event");
+                    	String description = reader.nextLine();
+                    	System.out.println("Enter the date of the event");
+                    	String date = reader.nextLine();
+                    	System.out.println("Enter the address of the event");
+                    	String address = reader.nextLine();
                     }
                     else {
                     	System.out.println(n + " Isn't a valid option... please enter a number between 1 and 2");
                     	}    
                     }
 			}
+			catch (NumberFormatException e) {
+                System.out.println("Enter a number between 1 to 2 please...");   
 		}
+	}
 	}
 }

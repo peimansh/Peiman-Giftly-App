@@ -10,11 +10,13 @@ public class Contact {
 	 * 
 	 * @param contactN
 	 */
-	public Contact(String contactN, Wishlist wish, Event event) {
+	public Contact(String contactN) {
 		wishlists = new ArrayList<>();
 		events = new ArrayList<>();
 		this.contactN = contactN;
 	}
+	
+	public void addDetailstoContact(Wishlist contactN, Event contactN) {
 	
 	public String getContactName() {
 		return contactN;
