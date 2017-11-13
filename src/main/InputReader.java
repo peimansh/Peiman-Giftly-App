@@ -8,7 +8,6 @@ public class InputReader {
 	private Scanner reader;
 	private CommandWords commands;
 	private ArrayList<Contact> contacts;
-	private ArrayList<Wish> wishlists;
 	
 	public InputReader() {
 		reader = new Scanner(System.in);
@@ -77,9 +76,8 @@ public class InputReader {
                     	String wishname  = reader.nextLine();
                     	System.out.println("Enter the estimated price of the item");
                     	String price = reader.nextLine();
-                    	int wishprice = Integer.parseInt(price);
-                    	Wishlist wishlist = new Wishlist(wishname, wishprice);
-                    	wishlists.add(wishlist);
+                    	int wishprice = Integer.parseInt(price);                   	
+                    	contact.addWish(wishname, wishprice);
                     }
                     else if(n==2){
                     	System.out.println("Enter the description of the event");

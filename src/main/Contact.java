@@ -16,6 +16,14 @@ public class Contact {
 		this.contactN = contactN;
 	}
 	
+	public void addWish(String wishname, int wishprice) {
+		this.wishlists.add(new Wish(wishname,wishprice));
+	}
+	
+	public void addEvent(String description, String date, String address) {
+		this.events.add(new Event(description, date, address));
+	}
+	
 	
 	/**
 	 * Enter the contact into the program
