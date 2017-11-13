@@ -1,11 +1,17 @@
 package main;
 
+import java.util.Date;
+
 public class Event {
 	private String description;
-	private String date;
+	private Date date;
 	private String address;
 
-	public Event (String description, String date, String address) {
+	public Event (String description, Date date, String address) {
+		setDetails(description, date, address);
+	}
+	
+	public void setDetails(String description, Date date, String address) {
 		this.description = description;
 		this.date = date;
 		this.address = address;
@@ -24,7 +30,7 @@ public class Event {
 		this.description = newdescription;
 	}
 	
-	public void changeDate(String newdate) {
+	public void changeDate(Date newdate) {
 		this.date = newdate;
 	}
 	

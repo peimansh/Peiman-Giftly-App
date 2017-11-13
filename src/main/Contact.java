@@ -1,6 +1,7 @@
 package main;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 public class Contact {
 	private ArrayList<Wish> wishlists;
@@ -20,7 +21,7 @@ public class Contact {
 		this.wishlists.add(new Wish(wishname,wishprice));
 	}
 	
-	public void addEvent(String description, String date, String address) {
+	public void addEvent(String description, Date date, String address) {
 		this.events.add(new Event(description, date, address));
 	}
 	

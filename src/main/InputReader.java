@@ -1,7 +1,10 @@
 package main;
 
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Scanner;
 
 public class InputReader {
@@ -60,6 +63,7 @@ public class InputReader {
 			
 	
 	public void addcontactMsg() {
+		Date date = null;
 		System.out.println("Enter the name of the contact:");
 		String contactN  = reader.nextLine();
 		Contact contact = new Contact(contactN);
@@ -83,15 +87,25 @@ public class InputReader {
                     	System.out.println("Enter the description of the event");
                     	String description = reader.nextLine();
                     	System.out.println("Enter the date of the event");
-                    	String date = reader.nextLine();
+                    	SimpleDateFormat mydateformat = new SimpleDateFormat("dd MM yyyy");
+                        try {
+                            System.out.println("Enter the date of the event (dd/mm/yyyy):");
+                            String date1 = reader.nextLine();
+                            date = mydateformat.parse(date1);
+                            
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
                     	System.out.println("Enter the address of the event");
                     	String address = reader.nextLine();
+                    	contact.addEvent(description, date, address);
                     }
                     else {
                     	System.out.println(n + " Isn't a valid option... please enter a number between 1 and 2");
                     	}    
                     }
 			}
+			
 			catch (NumberFormatException e) {
                 System.out.println("Enter a number between 1 to 2 please...");   
 		}
