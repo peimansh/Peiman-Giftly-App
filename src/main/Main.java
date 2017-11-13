@@ -1,5 +1,6 @@
 package main;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class Main {
@@ -9,7 +10,7 @@ public class Main {
 		contacts = new ArrayList<>();
 	}
 	
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 		// TODO Auto-generated method stub
 
 	InputReader start = new InputReader();

@@ -3,7 +3,7 @@ package main;
 import java.util.ArrayList;
 
 public class Contact {
-	private ArrayList<Wishlist> wishlists;
+	private ArrayList<Wish> wishlists;
 	private ArrayList<Event> events;
 	private String contactN;
 	/**making a contact object.
@@ -14,12 +14,6 @@ public class Contact {
 		wishlists = new ArrayList<>();
 		events = new ArrayList<>();
 		this.contactN = contactN;
-	}
-	
-	public void addDetailstoContact(Wishlist contactN, Event contactN) {
-	
-	public String getContactName() {
-		return contactN;
 	}
 	
 	

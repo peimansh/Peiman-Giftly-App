@@ -1,15 +1,15 @@
 package main;
 
-public class Wishlist {
+public class Wish {
 	private String wishname;
 	private int wishprice;
 	
-	public Wishlist(String wishname, int wishprice) {
+	public Wish(String wishname, int wishprice) {
 		this.wishname=wishname;
 		this.wishprice = wishprice;
 	}
 	
-	public String getWishlistDetails( ) {
+	public String getWishDetails( ) {
 		return ("The "+wishname+" costs "+wishprice+".");
 	}
 	

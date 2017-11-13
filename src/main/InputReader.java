@@ -8,7 +8,7 @@ public class InputReader {
 	private Scanner reader;
 	private CommandWords commands;
 	private ArrayList<Contact> contacts;
-	private ArrayList<Wishlist> wishlists;
+	private ArrayList<Wish> wishlists;
 	
 	public InputReader() {
 		reader = new Scanner(System.in);
