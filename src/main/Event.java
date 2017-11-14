@@ -17,6 +17,30 @@ public class Event {
 		this.address = address;
 	}
 	
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public void setDate(Date date) {
+		this.date = date;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public Date getDate() {
+		return date;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
 	public String getEventDetails() {
 		/**
 		 * Print the details of an event.
