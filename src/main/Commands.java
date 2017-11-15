@@ -61,7 +61,7 @@ public class Commands {
 				}
 		}        
     
-}
+	}
 
 	public void addContactMsg() throws IOException {
 		Date date = null;
@@ -109,30 +109,30 @@ public class Commands {
                         	} catch (ParseException e) {
                             e.printStackTrace();
                         	}
-                    	System.out.println("Enter the address of the event");
-                    	String address = reader.nextLine();
-                    	contact.addEvent(description, date, address);
-                    	System.out.println("Event successfully added for the contact");
-                    	System.out.println("Do you want to add another Interest or Event for the contact? Y/N");
-                    	String s = reader.nextLine().toLowerCase();
-                    	if (s.equals("y")) {
-                    		a = true;
-                    	}else{
-                    		a = false;
-                    		printL();
-                    		anotherWelcomeMsg();
-                    	}
+                    		System.out.println("Enter the address of the event");
+                    		String address = reader.nextLine();
+                    		contact.addEvent(description, date, address);
+                    		System.out.println("Event successfully added for the contact");
+                    		System.out.println("Do you want to add another Interest or Event for the contact? Y/N");
+                    		String s = reader.nextLine().toLowerCase();
+                    		if (s.equals("y")) {
+                    			a = true;
+                    		}else{
+                    			a = false;
+                    			printL();
+                    			anotherWelcomeMsg();
+                    		}
                     	}
                     	else {
                     	System.out.println(n + " Isn't a valid option... please enter a number between 1 and 2");
                     	}    
                     }
 			
-				catch (NumberFormatException e) {
-                System.out.println("Enter a number between 1 to 2 please...");   
+					catch (NumberFormatException e) {
+						System.out.println("Enter a number between 1 to 2 please...");   
+					}
+			}
 		}
-		}
-	}
 	
 	public void deleteContactMsg() throws IOException {
 		if (contacts.size()==0) {
@@ -151,7 +151,7 @@ public class Commands {
 	}
 	
 	public void testWish() {
-		Wish w = new Wish("kire boz", 20);
+		Wish w = new Wish("dashagh", 20);
 		System.out.println(w.getWishDetails());
 	}
 	public void printL(){
