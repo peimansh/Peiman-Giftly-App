@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class Contact {
-	private ArrayList<Wish> wishlists;
+	private ArrayList<Wish> wishlist;
 	private ArrayList<Event> events;
 	private String contactN;
 	/**making a contact object.
@@ -12,21 +12,42 @@ public class Contact {
 	 * @param contactN
 	 */
 	public Contact(String contactN) {
-		wishlists = new ArrayList<>();
+		wishlist = new ArrayList<>();
 		events = new ArrayList<>();
-		this.contactN = contactN;
+		setContactN(contactN);
 	}
 	
 	public void addWish(String wishname, int wishprice) {
-		this.wishlists.add(new Wish(wishname,wishprice));
+		this.wishlist.add(new Wish(wishname,wishprice));
 	}
 	
 	public void addEvent(String description, Date date, String address) {
 		this.events.add(new Event(description, date, address));
 	}
+
+	public String getContactN() {
+		return contactN;
+	}
+
+	public void setContactN(String contactN) {
+		this.contactN = contactN;
+	}
 	
-	
+	public Wish print(int i){
+		return wishlist.get(i);
+	}
 	/**
 	 * Enter the contact into the program
 	 */
+	public void getContactDetails(){
+		System.out.println(contactN);
+		for (Wish wish : wishlist) {
+			System.out.println(wish.getWishDetails());
+		}
+		for(Event event:events){
+			System.out.println(event.getEventDetails());
+		}
+		
+	}
+	
 }
