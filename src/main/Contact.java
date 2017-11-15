@@ -16,11 +16,11 @@ public class Contact {
 		events = new ArrayList<>();
 		setContactN(contactN);
 	}
-	
+
 	public void addWish(String wishname, int wishprice) {
 		this.wishlist.add(new Wish(wishname,wishprice));
 	}
-	
+
 	public void addEvent(String description, Date date, String address) {
 		this.events.add(new Event(description, date, address));
 	}
@@ -32,22 +32,49 @@ public class Contact {
 	public void setContactN(String contactN) {
 		this.contactN = contactN;
 	}
-	
+
 	public Wish print(int i){
 		return wishlist.get(i);
 	}
+	
 	/**
-	 * Enter the contact into the program
+	 * returns contacts details without the index number.
 	 */
 	public void getContactDetails(){
-		System.out.println(contactN);
+		System.out.println("Contact: "+contactN);
+		if (wishlist.size()==0) {
+			System.out.println("No interests exist for this contact.");
+		}
 		for (Wish wish : wishlist) {
 			System.out.println(wish.getWishDetails());
+		}
+		if (events.size()==0) {
+			System.out.println("No events exist for this contact.");
 		}
 		for(Event event:events){
 			System.out.println(event.getEventDetails());
 		}
-		
 	}
 	
+	/**
+	 * returns contacts details with the index number beside them.
+	 */
+	public void getContactDetails2(){
+		System.out.println("Contact: "+contactN);
+		if (wishlist.size()==0) {
+			System.out.println("No interests exist for this contact.\n");
+		}
+		for (int i=0; i<wishlist.size(); i++) {
+			Wish wish = wishlist.get(i);
+			System.out.println(i+1 +" - "+ wish.getWishDetails());
+		}
+		if (events.size()==0) {
+			System.out.println("No events exist for this contact.\n");
+		}
+		for (int i=0; i<events.size(); i++) {
+			Event event = events.get(i);
+			System.out.println(i+1 +" - "+ event.getEventDetails());
+		}
+	}
 }
+
