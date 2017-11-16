@@ -49,8 +49,7 @@ public class Commands {
 						deleteContactMsg();
 					}
 					else if(readerInt==3){
-
-						
+						modifyContactMsg();
 					}
 					else if(readerInt==4){
 						
@@ -154,8 +153,64 @@ public class Commands {
 			System.out.println(" isn't a valid option. Please enter a valid number ...");
 		}
 	}
-
 	
+	public void modifyContactMsg() throws IOException {
+		if (contacts.size()==0) {
+			System.out.println("There is no contact to modify !");
+			anotherWelcomeMsg();
+			}
+			System.out.println("Write the number of the contact you want to modify:");
+			for (int i=0; i<contacts.size(); i++) {
+				Contact contact= contacts.get(i);
+				System.out.println(i+1 +" - "+ contact.getContactN());
+			}
+			int input = Integer.parseInt(reader.nextLine());
+			boolean x = true;
+			while (x) {
+				try {
+					System.out.println("What do you want to do with this contact ?");
+					System.out.println("1- Change name of the contact\n2- Modify Interests\n3- Modify Events");
+					boolean c = true;
+					while (c) {
+						c = false;
+					int readerInt = Integer.parseInt(reader.nextLine());
+					switch(readerInt) {
+					case 1:
+						System.out.println("Enter the new name:");
+						String temp = reader.nextLine().trim();
+						contacts.get(input-1).setContactN(temp);
+						System.out.println("Contact name successfully changed.\nDo you want to further modify the contact? Y/N");
+						String s1 = reader.nextLine().trim().toLowerCase();
+                		if (s1.equals("y")) {
+                			c = true;
+                			break;
+                		}else if(s1.equals("n")) {
+                			c = false;
+                			anotherWelcomeMsg();
+                		}
+                	case 2:
+                		System.out.println("Which Interest do you want to delete?");
+                		contacts.get(input-1).getInterestsList();
+                		int readerInt2 = Integer.parseInt(reader.nextLine());
+                		contacts.get(input-1).removeInterest(readerInt2-1);
+                		System.out.println("Interest successfully removed.\nDo you want to further modify interests? Y/N");
+                		String s2 = reader.nextLine().trim().toLowerCase();
+                		if (s2.equals("y")) {
+                			c = true;
+                			break;
+                		}else if(s2.equals("n")) {
+                			modifyContactMsg();
+                			break;
+                		}
+                		
+					}
+					}
+				}catch (NumberFormatException e) {
+					System.out.println(" isn't a valid option. Please enter a valid number ...");
+			}
+			}
+	}
+
 	public void testWish() {
 		Wish w = new Wish("dashagh", 20);
 		System.out.println(w.getWishDetails());

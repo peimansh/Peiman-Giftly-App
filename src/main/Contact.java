@@ -1,5 +1,6 @@
 package main;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -7,6 +8,7 @@ public class Contact {
 	private ArrayList<Wish> wishlist;
 	private ArrayList<Event> events;
 	private String contactN;
+	private Commands command;
 	/**making a contact object.
 	 * 
 	 * @param contactN
@@ -15,6 +17,7 @@ public class Contact {
 		wishlist = new ArrayList<>();
 		events = new ArrayList<>();
 		setContactN(contactN);
+		command = new Commands();
 	}
 
 	public void addWish(String wishname, int wishprice) {
@@ -37,6 +40,25 @@ public class Contact {
 		return wishlist.get(i);
 	}
 	
+	/**
+	 * print the List of interests of the contact
+	 * @throws IOException 
+	 */
+	public void getInterestsList() throws IOException {
+		if (wishlist.size()==0) {
+			System.out.println("There is no Interest to modify !");
+			command.modifyContactMsg();
+			}
+			System.out.println("Write the number of the Interest you want to delete:");
+		for (int i=0; i<wishlist.size(); i++) {
+			Wish wish= wishlist.get(i);
+			System.out.println(i+1 +" - "+ wish.getWishName()+" - Price: "+wish.getWishPrice());
+		}
+	}
+	
+	public void removeInterest(int index) {
+		wishlist.remove(index);
+	}
 	/**
 	 * returns contacts details without the index number.
 	 */
