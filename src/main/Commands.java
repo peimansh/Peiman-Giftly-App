@@ -12,14 +12,10 @@ public class Commands {
 	private Scanner reader;
 	private Contact contact;
 	private ArrayList<Contact> contacts;
-	private int readerInt;
-	private int input;
 
 	public Commands() {
 		contacts = new ArrayList<>();
     	reader = new Scanner(System.in);
-    	readerInt = Integer.parseInt(reader.nextLine());
-    	input = (reader.nextInt());
 	}
 	
 	public void welcomeMsg() throws IOException {	
@@ -43,8 +39,9 @@ public class Commands {
 		System.out.println("7- Quit");
 		while (b) {
 			try {
+				int readerInt = Integer.parseInt(reader.nextLine());
 				if (readerInt>0 && readerInt<8) {
-					b = false;
+					b = true;
 					if(readerInt==1){
 						addContactMsg() ;
 					}
@@ -60,7 +57,7 @@ public class Commands {
 					}
 				}
 				} catch (NumberFormatException e) {
-				System.out.println("Enter a 1number between 1 to 6 please...");    
+					System.out.println("Enter a number between 1 to 6 please...");    
 				}
 		}        
     
@@ -69,13 +66,14 @@ public class Commands {
 	public void addContactMsg() throws IOException {
 		Date date = null;
 		System.out.println("Enter the name of the contact:");
-		String contactN = reader.nextLine();
+		String contactN = reader.nextLine().trim();
 		contact = new Contact(contactN);
 		contacts.add(contact);
 		boolean a = true;
-		while (a) {
-				System.out.println("1-Add an interest for the person\n2-Add an event for the person");
+			while (a) {
+						System.out.println("1-Add an interest for the person\n2-Add an event for the person");
 				try {
+					int readerInt = Integer.parseInt(reader.nextLine());
 					if (readerInt>0 && readerInt<3) {
                     a = true;
                     if (readerInt==1) {
@@ -91,17 +89,17 @@ public class Commands {
                     		if (s.equals("y")) {
                     			a = true;
                     			continue;
-                    		}else{
-                    			a = false;
+                    		}else if(s.equals("n")) {
+                    			a = true;
                     			printL();
                     			anotherWelcomeMsg();
+                    			break;
                     	}
                     	}
                     	}
                 	if(readerInt==2){
                     	System.out.println("Enter the description of the event");
                     	String description = reader.nextLine();
-                    	System.out.println("Enter the date of the event");
                     	SimpleDateFormat mydateformat = new SimpleDateFormat("dd MM yyyy");
                         try {
                             System.out.println("Enter the date of the event (dd mm yyyy):");
@@ -120,17 +118,18 @@ public class Commands {
                     		if (s.equals("y")) {
                     			a = true;
                     			continue;
-                    		}else{
-                    			a = false;
+                    		}else if(s.equals("n")) {
+                    			a = true;
                     			printL();
                     			anotherWelcomeMsg();
+                    			break;
                     		}
                 	}
 				}	
                     
 			
 					catch (NumberFormatException e) {
-						System.out.println(readerInt+"isn't a valid option. Please enter a number between 1 and 2 ...");   
+						System.out.println("isn't a valid option. Please enter a number between 1 and 2 ...");   
 					}
 			}
 		}
@@ -146,12 +145,13 @@ public class Commands {
 			System.out.println(i+1 +" - "+ contact.getContactN());
 			}
 			try {
+				int input = Integer.parseInt(reader.nextLine());
 				contacts.remove(input-1);
 				System.out.println("Contact successfully removed.");
 				anotherWelcomeMsg();
 			}
 			catch (NumberFormatException e) {
-			System.out.println(input+" isn't a valid option. Please enter a valid number ...");
+			System.out.println(" isn't a valid option. Please enter a valid number ...");
 		}
 	}
 
