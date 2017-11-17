@@ -31,8 +31,8 @@ public class Commands {
 		boolean b = true;
 		System.out.println("Use these numbers to begin :");
 		System.out.println("1- Add a contact");
-		System.out.println("2- Delete a contact");
-		System.out.println("3- Modify a contact");
+		System.out.println("2- Modify a contact");
+		System.out.println("3- Delete a contact");
 		System.out.println("4- Show list of contacts");
 		System.out.println("5- Save the info to a file");
 		System.out.println("6- Load the info from file");
@@ -41,15 +41,15 @@ public class Commands {
 			try {
 				int readerInt = Integer.parseInt(reader.nextLine());
 				if (readerInt>0 && readerInt<8) {
-					b = true;
+					b = false;
 					if(readerInt==1){
 						addContactMsg() ;
 					}
 					else if(readerInt==2){
-						deleteContactMsg();
+						modifyContactMsg();
 					}
 					else if(readerInt==3){
-						modifyContactMsg();
+						deleteContactMsg();
 					}
 					else if(readerInt==4){
 						
@@ -155,7 +155,7 @@ public class Commands {
 	}
 	
 	public void modifyContactMsg() throws IOException {
-		if (contacts.size()==0) {
+			if (contacts.size()==0) {
 			System.out.println("There is no contact to modify !");
 			anotherWelcomeMsg();
 			}
@@ -168,14 +168,14 @@ public class Commands {
 			boolean x = true;
 			while (x) {
 				try {
-					System.out.println("What do you want to do with this contact ?");
-					System.out.println("1- Change name of the contact\n2- Modify Interests\n3- Modify Events");
 					boolean c = true;
 					while (c) {
+						System.out.println("What do you want to do with this contact ?");
+						System.out.println("1- Change name of the contact\n2- Modify Interests\n3- Modify Events");
 						c = false;
 					int readerInt = Integer.parseInt(reader.nextLine());
 					switch(readerInt) {
-					case 1:
+					case 1: {
 						System.out.println("Enter the new name:");
 						String temp = reader.nextLine().trim();
 						contacts.get(input-1).setContactN(temp);
@@ -187,18 +187,25 @@ public class Commands {
                 		}else if(s1.equals("n")) {
                 			c = false;
                 			anotherWelcomeMsg();
+                			break;
                 		}
+					}
                 	case 2:
+                		if(contacts.get(input-1).wishlist.size() == 0) {
+                			System.out.println("There is no interest to modify !");
+                			break;
+                		}
                 		System.out.println("Which Interest do you want to delete?");
                 		contacts.get(input-1).getInterestsList();
                 		int readerInt2 = Integer.parseInt(reader.nextLine());
                 		contacts.get(input-1).removeInterest(readerInt2-1);
-                		System.out.println("Interest successfully removed.\nDo you want to further modify interests? Y/N");
+                		System.out.println("Interest successfully removed.\nDo you want to further modify the contact? Y/N");
                 		String s2 = reader.nextLine().trim().toLowerCase();
                 		if (s2.equals("y")) {
                 			c = true;
                 			break;
                 		}else if(s2.equals("n")) {
+                			c = false;
                 			modifyContactMsg();
                 			break;
                 		}

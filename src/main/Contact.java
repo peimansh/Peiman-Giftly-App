@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class Contact {
-	private ArrayList<Wish> wishlist;
+	ArrayList<Wish> wishlist;
 	private ArrayList<Event> events;
 	private String contactN;
 	private Commands command;
