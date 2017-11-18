@@ -5,7 +5,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.Scanner;
 
 public class Commands {
@@ -54,9 +53,16 @@ public class Commands {
 					else if(readerInt==4){
 						listOfContactsMsg();
 					}
+					else if(readerInt==5) {
+						
+					}
+				}
+				else {
+					System.out.println(readerInt + " Isn't a valid option... please enter a number between 1 and 7");
 				}
 				} catch (NumberFormatException e) {
-					System.out.println("Enter a number between 1 to 6 please...");    
+					System.out.println("Enter a number between 1 to 7 please...");
+					anotherWelcomeMsg();
 				}
 		}        
     
