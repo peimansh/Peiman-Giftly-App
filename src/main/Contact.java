@@ -6,7 +6,7 @@ import java.util.Date;
 
 public class Contact {
 	ArrayList<Wish> wishlist;
-	private ArrayList<Event> events;
+	ArrayList<Event> events;
 	private String contactN;
 	private Commands command;
 	/**making a contact object.
@@ -40,6 +40,21 @@ public class Contact {
 		return wishlist.get(i);
 	}
 	
+	public void getContactDetail() {
+		if (wishlist.size()==0) {
+			System.out.println("No interests exist for this contact.");
+		}
+		for (Wish wish : wishlist) {
+			System.out.println(wish.getWishDetails());
+		}
+		if (events.size()==0) {
+			System.out.println("No events exist for this contact.");
+		}
+		for(Event event:events){
+			System.out.println(event.getEventDetails());
+		}
+	}
+	
 	/**
 	 * print the List of interests of the contact
 	 * @throws IOException 
@@ -59,29 +74,45 @@ public class Contact {
 	public void removeInterest(int index) {
 		wishlist.remove(index);
 	}
+	
+	public void removeEvent(int index) {
+		events.remove(index);
+	}
+	
+	public void getEventList () throws IOException {
+		if (events.size()==0) {
+			System.out.println("There is no Event to modify !");
+			command.modifyContactMsg();
+			}
+			System.out.println("Write the number of the Event you want to delete:");
+		for (int i=0; i<events.size(); i++) {
+			Event event= events.get(i);
+			System.out.println(i+1 +" - "+ event.getDescription()+" - Date: "+event.getDate()+" - Address: "+event.getAddress());
+		}
+	}
 	/**
 	 * returns contacts details without the index number.
 	 */
-	public void getContactDetails(){
+	public void getContactsDetails(){
 		System.out.println("Contact: "+contactN);
 		if (wishlist.size()==0) {
-			System.out.println("No interests exist for this contact.");
+			System.out.println("No interests exist for this contact.\n");
 		}
 		for (Wish wish : wishlist) {
 			System.out.println(wish.getWishDetails());
 		}
 		if (events.size()==0) {
-			System.out.println("No events exist for this contact.");
+			System.out.println("No events exist for this contact.\n");
 		}
 		for(Event event:events){
-			System.out.println(event.getEventDetails());
+			System.out.println(event.getEventDetails()+"\n");
 		}
 	}
 	
 	/**
 	 * returns contacts details with the index number beside them.
 	 */
-	public void getContactDetails2(){
+	public void getContactsDetails2(){
 		System.out.println("Contact: "+contactN);
 		if (wishlist.size()==0) {
 			System.out.println("No interests exist for this contact.\n");

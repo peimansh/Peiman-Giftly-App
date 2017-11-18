@@ -52,7 +52,7 @@ public class Commands {
 						deleteContactMsg();
 					}
 					else if(readerInt==4){
-						
+						listOfContactsMsg();
 					}
 				}
 				} catch (NumberFormatException e) {
@@ -171,7 +171,7 @@ public class Commands {
 					boolean c = true;
 					while (c) {
 						System.out.println("What do you want to do with this contact ?");
-						System.out.println("1- Change name of the contact\n2- Modify Interests\n3- Modify Events");
+						System.out.println("1- Change name of the contact\n2- Modify Interests\n3- Modify Events\n4- Go to main page");
 						c = false;
 					int readerInt = Integer.parseInt(reader.nextLine());
 					switch(readerInt) {
@@ -190,7 +190,7 @@ public class Commands {
                 			break;
                 		}
 					}
-                	case 2:
+                	case 2: {
                 		if(contacts.get(input-1).wishlist.size() == 0) {
                 			System.out.println("There is no interest to modify !");
                 			break;
@@ -209,7 +209,36 @@ public class Commands {
                 			modifyContactMsg();
                 			break;
                 		}
-                		
+                	}
+                	case 3: {
+                		if(contacts.get(input-1).events.size() == 0) {
+                			System.out.println("There is no event to modify !");
+                			break;
+                		}
+                		System.out.println("Which Event do you want to delete?");
+                		contacts.get(input-1).getEventList();
+                		int readerInt2 = Integer.parseInt(reader.nextLine());
+                		contacts.get(input-1).removeEvent(readerInt2-1);
+                		System.out.println("Event successfully removed.\nDo you want to further modify the contact? Y/N");
+                		String s2 = reader.nextLine().trim().toLowerCase();
+                		if (s2.equals("y")) {
+                			c = true;
+                			break;
+                		}else if(s2.equals("n")) {
+                			c = false;
+                			modifyContactMsg();
+                			break;
+                		}
+                	}
+                	case 4: {
+                		anotherWelcomeMsg();
+                		break;
+                	}
+                	default: {
+                		c = true;
+                		System.out.println("You enetered an invalid command.");
+                		break;
+                	}
 					}
 					}
 				}catch (NumberFormatException e) {
@@ -217,14 +246,71 @@ public class Commands {
 			}
 			}
 	}
+	
+	public void listOfContactsMsg() throws IOException {
+		if (contacts.size()==0) {
+			System.out.println("There is no contact to show !");
+			anotherWelcomeMsg();
+			}
+		System.out.println("1- Show details of all contacts\n2- Show details of a specific contact\n3- Show number of contacts\n4- Go to the main page");
+		int readerInt = Integer.parseInt(reader.nextLine().trim());
+		switch(readerInt) {
+		case 1: {
+			printL2();
+			listOfContactsMsg();
+			break;
+		}
+		case 2: {
+			System.out.println("Write the number of the contact to show details");
+			listOfContactN();
+			int readerInt2 = Integer.parseInt(reader.nextLine().trim());
+			contacts.get(readerInt2-1).getContactDetail();
+			listOfContactsMsg();
+			break;
+		}
+		case 3: {
+			System.out.println("Total : "+numberOfContacts());
+			listOfContactsMsg();
+			break;
+		}
+		case 4: {
+			anotherWelcomeMsg();
+			break;
+		}
+		default : {
+			System.out.println("You enetered an invalid command.");
+    		listOfContactsMsg();
+			break;
+		}
+		}
+	}
 
 	public void testWish() {
 		Wish w = new Wish("dashagh", 20);
 		System.out.println(w.getWishDetails());
 	}
-	public void printL(){
-		for (Contact contact : contacts) {
-			contact.getContactDetails2();
+	
+	public int numberOfContacts() {
+		return contacts.size();
+	}
+	
+	public void listOfContactN() {
+		for (int i=0; i<contacts.size(); i++) {
+			Contact contact = contacts.get(i);
+			System.out.println(i+1 +" - "+ contact.getContactN());
 		}
 	}
+	
+	public void printL(){
+		for (Contact contact : contacts) {
+			contact.getContactsDetails2();
+		}
+	}
+		
+	public void printL2(){
+		for (Contact contact : contacts) {
+			contact.getContactsDetails();
+		}
+		System.out.println(numberOfContacts()+" contacts found");
+		}
 }
