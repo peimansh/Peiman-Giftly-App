@@ -6,8 +6,14 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Scanner;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
+import java.io.ObjectInputStream;
 
-public class Commands {
+
+public class Commands implements Serializable {
 	private Scanner reader;
 	private Contact contact;
 	private ArrayList<Contact> contacts;
@@ -33,13 +39,14 @@ public class Commands {
 		System.out.println("2- Modify a contact");
 		System.out.println("3- Delete a contact");
 		System.out.println("4- Show list of contacts");
-		System.out.println("5- Save the info to a file");
-		System.out.println("6- Load the info from file");
-		System.out.println("7- Quit");
+		System.out.println("5- Search");
+		System.out.println("6- Save the info to a file");
+		System.out.println("7- Load the info from file");
+		System.out.println("8- Quit");
 		while (b) {
 			try {
 				int readerInt = Integer.parseInt(reader.nextLine());
-				if (readerInt>0 && readerInt<8) {
+				if (readerInt>0 && readerInt<9) {
 					b = false;
 					if(readerInt==1){
 						addContactMsg() ;
@@ -54,18 +61,26 @@ public class Commands {
 						listOfContactsMsg();
 					}
 					else if(readerInt==5) {
-						
+						searchContactMsg();
+					}
+					else if(readerInt==6){
+						saveProcess();
+					}
+					else if(readerInt==7) {
+						loadProcess();
+					}
+					else if(readerInt==8 ) {
+						System.exit(0);
 					}
 				}
 				else {
-					System.out.println(readerInt + " Isn't a valid option... please enter a number between 1 and 7");
+					System.out.println(readerInt + " Isn't a valid option... please enter a number between 1 and 8");
 				}
 				} catch (NumberFormatException e) {
-					System.out.println("Enter a number between 1 to 7 please...");
+					System.out.println("Enter a number between 1 to 8 please...");
 					anotherWelcomeMsg();
 				}
 		}        
-    
 	}
 
 	public void addContactMsg() throws IOException {
@@ -110,7 +125,6 @@ public class Commands {
                             System.out.println("Enter the date of the event (dd mm yyyy):");
                             String date1 = reader.nextLine();
                             date = mydateformat.parse(date1);
-                            
                         	} catch (ParseException e) {
                             e.printStackTrace();
                         	}
@@ -131,8 +145,6 @@ public class Commands {
                     		}
                 	}
 				}	
-                    
-			
 					catch (NumberFormatException e) {
 						System.out.println("isn't a valid option. Please enter a number between 1 and 2 ...");   
 					}
@@ -205,7 +217,7 @@ public class Commands {
                 		contacts.get(input-1).getInterestsList();
                 		int readerInt2 = Integer.parseInt(reader.nextLine());
                 		contacts.get(input-1).removeInterest(readerInt2-1);
-                		System.out.println("Interest successfully removed.\nDo you want to further modify the contact? Y/N");
+                		System.out.println("Interest successfully removed.\nDo you want to further modify this contact? Y/N");
                 		String s2 = reader.nextLine().trim().toLowerCase();
                 		if (s2.equals("y")) {
                 			c = true;
@@ -225,7 +237,7 @@ public class Commands {
                 		contacts.get(input-1).getEventList();
                 		int readerInt2 = Integer.parseInt(reader.nextLine());
                 		contacts.get(input-1).removeEvent(readerInt2-1);
-                		System.out.println("Event successfully removed.\nDo you want to further modify the contact? Y/N");
+                		System.out.println("Event successfully removed.\nDo you want to further modify this contact? Y/N");
                 		String s2 = reader.nextLine().trim().toLowerCase();
                 		if (s2.equals("y")) {
                 			c = true;
@@ -289,6 +301,74 @@ public class Commands {
 			break;
 		}
 		}
+	}
+	
+	public void searchContactMsg() throws IOException {
+		System.out.println("Enter the name of the contact you want to search:");
+		String search = reader.nextLine().trim();
+		int i = 0;
+		boolean a = true;
+		while(i<contacts.size() && a) {
+			String temp = contacts.get(i).getContactN();
+			if(temp.contains(search)) {
+				System.out.println(temp+"\n");
+				a = false;
+				System.out.println("Do you want to show the contact details ? Y/N");
+				switch(reader.nextLine().trim().toLowerCase()) {
+				case "y": {
+					contacts.get(i).getContactsDetails2();
+					anotherWelcomeMsg();
+					break;
+				}
+				case "n": {
+					anotherWelcomeMsg();
+					break;
+				}
+				default : {
+					a = true;
+					System.out.println("Enter a valid command Y or N");
+					continue;
+				}
+				}
+			}
+			i++;
+		}
+			System.out.println("No match found");
+			anotherWelcomeMsg();
+	}
+	
+	public void saveProcess() throws IOException {
+		try{
+			FileOutputStream saveOut = new FileOutputStream("C:\\Users\\Pemi\\Desktop\\savedinfo.txt");
+	        ObjectOutputStream save = new ObjectOutputStream(saveOut);
+	        save.writeObject(contacts);
+	        save.close();
+	        saveOut.close();
+	        System.out.println("Contacts saved successfully");	           
+            }
+	        catch(IOException e) {
+	           e.printStackTrace();
+	        }
+	        anotherWelcomeMsg();
+	}
+	
+	public void loadProcess() throws IOException {
+		try{
+	        FileInputStream loadIn = new FileInputStream("C:\\\\Users\\\\Pemi\\\\Desktop\\\\savedinfo.txt");
+	        ObjectInputStream load = new ObjectInputStream(loadIn);
+	        try {
+	             contacts = (ArrayList<Contact>) load.readObject();
+	             load.close();
+	             loadIn.close();
+	             System.out.println("Contacts loaded successfully");
+	             } catch (ClassNotFoundException e) { 
+	                e.printStackTrace();
+	                }
+	             }
+	        catch(IOException e){
+	           e.printStackTrace();
+	           }
+	            anotherWelcomeMsg();
 	}
 
 	public void testWish() {

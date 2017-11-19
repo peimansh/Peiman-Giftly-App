@@ -1,6 +1,8 @@
 package main;
 
-public class Wish {
+import java.io.Serializable;
+
+public class Wish implements Serializable {
 	private String wishname;
 	private int wishprice;
 
@@ -20,5 +22,4 @@ public class Wish {
 	public String getWishName( ) {
 		return wishname;
 	}
-
 }

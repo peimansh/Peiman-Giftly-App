@@ -1,14 +1,15 @@
 package main;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class Contact {
+
+public class Contact implements Serializable {
 	ArrayList<Wish> wishlist;
 	ArrayList<Event> events;
 	private String contactN;
-	private Commands command;
 	/**making a contact object.
 	 * 
 	 * @param contactN
@@ -17,7 +18,7 @@ public class Contact {
 		wishlist = new ArrayList<>();
 		events = new ArrayList<>();
 		setContactN(contactN);
-		command = new Commands();
+		//command = new Commands();
 	}
 
 	public void addWish(String wishname, int wishprice) {
@@ -60,10 +61,6 @@ public class Contact {
 	 * @throws IOException 
 	 */
 	public void getInterestsList() throws IOException {
-		if (wishlist.size()==0) {
-			System.out.println("There is no Interest to modify !");
-			command.modifyContactMsg();
-			}
 			System.out.println("Write the number of the Interest you want to delete:");
 		for (int i=0; i<wishlist.size(); i++) {
 			Wish wish= wishlist.get(i);
@@ -80,23 +77,20 @@ public class Contact {
 	}
 	
 	public void getEventList () throws IOException {
-		if (events.size()==0) {
-			System.out.println("There is no Event to modify !");
-			command.modifyContactMsg();
-			}
 			System.out.println("Write the number of the Event you want to delete:");
 		for (int i=0; i<events.size(); i++) {
 			Event event= events.get(i);
 			System.out.println(i+1 +" - "+ event.getDescription()+" - Date: "+event.getDate()+" - Address: "+event.getAddress());
 		}
 	}
+	
 	/**
 	 * returns contacts details without the index number.
 	 */
 	public void getContactsDetails(){
 		System.out.println("Contact: "+contactN);
 		if (wishlist.size()==0) {
-			System.out.println("No interests exist for this contact.\n");
+			System.out.println("No interests exist for this contact.");
 		}
 		for (Wish wish : wishlist) {
 			System.out.println(wish.getWishDetails());
@@ -115,7 +109,7 @@ public class Contact {
 	public void getContactsDetails2(){
 		System.out.println("Contact: "+contactN);
 		if (wishlist.size()==0) {
-			System.out.println("No interests exist for this contact.\n");
+			System.out.println("No interests exist for this contact.");
 		}
 		for (int i=0; i<wishlist.size(); i++) {
 			Wish wish = wishlist.get(i);
@@ -130,4 +124,3 @@ public class Contact {
 		}
 	}
 }
-

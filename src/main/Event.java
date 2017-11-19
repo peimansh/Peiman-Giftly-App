@@ -1,9 +1,10 @@
 package main;
 
+import java.io.Serializable;
 import java.util.Date;
 
 
-public class Event {
+public class Event implements Serializable {
 	private String description;
 	private Date date;
 	private String address;
@@ -49,8 +50,6 @@ public class Event {
 		return ("The event : ("+description+") is on : "+date+" and the address is : "+address+".");
 	}
 
-
-
 	public void changeDescription(String newdescription) {
 		this.description = newdescription;
 	}
@@ -63,5 +62,3 @@ public class Event {
 		this.address = newaddress;
 	}
 }
-
-
