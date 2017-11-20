@@ -12,15 +12,13 @@ public class Event implements Serializable {
 	private Date date;
 	private String address;
 	private Date currentdate;
-	private Toolkit toolkit;
-	private Timer timer;
-
+	
 	public Event (String description, Date date, String address) {
 		setDetails(description, date, address);
-		toolkit = Toolkit.getDefaultToolkit();
-		timer = new Timer();
+		Toolkit.getDefaultToolkit();
+		new Timer();
 	}
-
+	
 	public void setDetails(String description, Date date, String address) {
 		this.description = description;
 		this.date = date;
@@ -72,9 +70,11 @@ public class Event implements Serializable {
 	
 	public long getDateDifference(Date date) {
 		this.date = date;
-		long difference = (date.getTime()- currentdate.getTime())/1000;
+		long difference = (date.getTime()- currentdate.getTime());
 		return difference;
 	}
 	
-	//public getReminder
+	public void getReminder(Date date) {
+		Reminder reminder = new Reminder(getDateDifference(date));
+	}
 }

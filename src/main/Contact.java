@@ -4,12 +4,14 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Random;
 
 
 public class Contact implements Serializable {
 	ArrayList<Wish> wishlist;
 	ArrayList<Event> events;
 	private String contactN;
+	private Random randomGenerator;
 	/**making a contact object.
 	 * 
 	 * @param contactN
@@ -18,7 +20,7 @@ public class Contact implements Serializable {
 		wishlist = new ArrayList<>();
 		events = new ArrayList<>();
 		setContactN(contactN);
-		//command = new Commands();
+		randomGenerator = new Random();
 	}
 
 	public void addWish(String wishname, int wishprice) {
@@ -77,7 +79,6 @@ public class Contact implements Serializable {
 	}
 	
 	public void getEventList () throws IOException {
-			System.out.println("Write the number of the Event you want to delete:");
 		for (int i=0; i<events.size(); i++) {
 			Event event= events.get(i);
 			System.out.println(i+1 +" - "+ event.getDescription()+" - Date: "+event.getDate()+" - Address: "+event.getAddress());
@@ -122,5 +123,10 @@ public class Contact implements Serializable {
 			Event event = events.get(i);
 			System.out.println(i+1 +" - "+ event.getEventDetails());
 		}
+	}
+	
+	public void getRandomInterest() {
+		int index = randomGenerator.nextInt(wishlist.size());
+		System.out.println("Random Suggestor, suggests you to buy: "+wishlist.get(index).getWishName()+" and its estimated price is: "+wishlist.get(index).getWishPrice());
 	}
 }

@@ -39,14 +39,15 @@ public class Commands implements Serializable {
 		System.out.println("2- Modify a contact");
 		System.out.println("3- Delete a contact");
 		System.out.println("4- Show list of contacts");
-		System.out.println("5- Search");
-		System.out.println("6- Save the info to a file");
-		System.out.println("7- Load the info from file");
-		System.out.println("8- Quit");
+		System.out.println("5- Get a random suggestor for a contact event");
+		System.out.println("6- Search");
+		System.out.println("7- Save the info to a file");
+		System.out.println("8- Load the info from file");
+		System.out.println("9- Quit");
 		while (b) {
 			try {
 				int readerInt = Integer.parseInt(reader.nextLine());
-				if (readerInt>0 && readerInt<9) {
+				if (readerInt>0 && readerInt<10) {
 					b = false;
 					if(readerInt==1){
 						addContactMsg() ;
@@ -60,24 +61,27 @@ public class Commands implements Serializable {
 					else if(readerInt==4){
 						listOfContactsMsg();
 					}
-					else if(readerInt==5) {
-						searchContactMsg();
+					else if(readerInt==5){
+						randomSuggestorMsg();
 					}
 					else if(readerInt==6){
+						searchContactMsg();
+					}
+					else if(readerInt==7){
 						saveProcess();
 					}
-					else if(readerInt==7) {
+					else if(readerInt==8 ){
 						loadProcess();
 					}
-					else if(readerInt==8 ) {
+					else if(readerInt==9){
 						System.exit(0);
 					}
 				}
 				else {
-					System.out.println(readerInt + " Isn't a valid option... please enter a number between 1 and 8");
+					System.out.println(readerInt + " Isn't a valid option... please enter a number between 1 and 9");
 				}
 				} catch (NumberFormatException e) {
-					System.out.println("Enter a number between 1 to 8 please...");
+					System.out.println("Enter a number between 1 to 9 please...");
 					anotherWelcomeMsg();
 				}
 		}        
@@ -369,6 +373,19 @@ public class Commands implements Serializable {
 	           e.printStackTrace();
 	           }
 	            anotherWelcomeMsg();
+	}
+	
+	public void randomSuggestorMsg() throws IOException {
+		System.out.println("Write the number of the contact:");
+		listOfContactN();
+		int readerInt1 = Integer.parseInt(reader.nextLine().trim());
+		System.out.println("Write the number of the event that you want to get suggestion for:");
+		contacts.get(readerInt1-1).getEventList();
+		int readerInt2 = Integer.parseInt(reader.nextLine().trim());
+		contacts.get(readerInt1-1).getRandomInterest();
+		System.out.println("Press any key to go the main page");
+		reader.nextLine();
+		anotherWelcomeMsg();
 	}
 
 	public void testWish() {
