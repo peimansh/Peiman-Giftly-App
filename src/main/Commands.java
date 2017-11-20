@@ -70,7 +70,7 @@ public class Commands implements Serializable {
 					else if(readerInt==7){
 						saveProcess();
 					}
-					else if(readerInt==8 ){
+					else if(readerInt==8){
 						loadProcess();
 					}
 					else if(readerInt==9){
@@ -220,7 +220,13 @@ public class Commands implements Serializable {
                 		System.out.println("Which Interest do you want to delete?");
                 		contacts.get(input-1).getInterestsList();
                 		int readerInt2 = Integer.parseInt(reader.nextLine());
-                		contacts.get(input-1).removeInterest(readerInt2-1);
+                		try {
+                			contacts.get(input-1).removeInterest(readerInt2-1);
+                		}
+                		catch (IndexOutOfBoundsException e) {
+                			System.out.println("Enter a valid number");
+                			continue;
+                		}
                 		System.out.println("Interest successfully removed.\nDo you want to further modify this contact? Y/N");
                 		String s2 = reader.nextLine().trim().toLowerCase();
                 		if (s2.equals("y")) {
@@ -240,7 +246,13 @@ public class Commands implements Serializable {
                 		System.out.println("Which Event do you want to delete?");
                 		contacts.get(input-1).getEventList();
                 		int readerInt2 = Integer.parseInt(reader.nextLine());
-                		contacts.get(input-1).removeEvent(readerInt2-1);
+                		try {
+                			contacts.get(input-1).removeEvent(readerInt2-1);
+                		}
+                		catch (IndexOutOfBoundsException e) {
+                			System.out.println("Enter a valid number");
+                			continue;
+                		}
                 		System.out.println("Event successfully removed.\nDo you want to further modify this contact? Y/N");
                 		String s2 = reader.nextLine().trim().toLowerCase();
                 		if (s2.equals("y")) {
