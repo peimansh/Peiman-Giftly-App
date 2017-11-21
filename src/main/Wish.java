@@ -11,15 +11,15 @@ public class Wish implements Serializable {
 		this.wishprice = wishprice;
 	}
 
-	public String getWishDetails( ) {
-		return ("Likes to have "+wishname+" and it costs around "+wishprice+".");
+	public String getWishDetails() {
+		return ("Likes to have \""+wishname+"\" and it costs around "+wishprice+".");
 	}
 
 	public int getWishPrice() {
 		return wishprice;
 	}
 
-	public String getWishName( ) {
+	public String getWishName() {
 		return wishname;
 	}
 }

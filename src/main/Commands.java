@@ -192,6 +192,14 @@ public class Commands implements Serializable {
 				try {
 					boolean c = true;
 					while (c) {
+						try {
+							contacts.get(input-1);
+						}
+						catch (IndexOutOfBoundsException e) {
+							System.out.println("You entered an invalid number");
+							modifyContactMsg();
+							break;
+						}
 						System.out.println("What do you want to do with this contact ?");
 						System.out.println("1- Change name of the contact\n2- Modify Interests\n3- Modify Events\n4- Go to main page");
 						c = false;
@@ -298,8 +306,14 @@ public class Commands implements Serializable {
 			System.out.println("Write the number of the contact to show details");
 			listOfContactN();
 			int readerInt2 = Integer.parseInt(reader.nextLine().trim());
-			contacts.get(readerInt2-1).getContactDetail();
-			listOfContactsMsg();
+			try {
+				contacts.get(readerInt2-1).getContactDetail();
+				listOfContactsMsg();
+			}
+			catch (IndexOutOfBoundsException e) {
+				System.out.println("You entered an invalid number");
+				listOfContactsMsg();
+			}
 			break;
 		}
 		case 3: {
@@ -388,12 +402,30 @@ public class Commands implements Serializable {
 	}
 	
 	public void randomSuggestorMsg() throws IOException {
+		if (contacts.size()==0) {
+			System.out.println("There is no contact stored in the app");
+			anotherWelcomeMsg();
+			}
 		System.out.println("Write the number of the contact:");
 		listOfContactN();
 		int readerInt1 = Integer.parseInt(reader.nextLine().trim());
+		try {
+				contacts.get(readerInt1-1);
+		}
+		catch (IndexOutOfBoundsException e) {
+								System.out.println("You entered an invalid number");
+								randomSuggestorMsg();
+		}
 		System.out.println("Write the number of the event that you want to get suggestion for:");
 		contacts.get(readerInt1-1).getEventList();
 		int readerInt2 = Integer.parseInt(reader.nextLine().trim());
+		try {
+			contacts.get(readerInt1-1).getEvent(readerInt2-1);
+		}
+		catch (IndexOutOfBoundsException e) {
+								System.out.println("You entered an invalid number");
+								randomSuggestorMsg();
+		}
 		contacts.get(readerInt1-1).getRandomInterest();
 		System.out.println("Press any key to go the main page");
 		reader.nextLine();
@@ -427,5 +459,5 @@ public class Commands implements Serializable {
 			contact.getContactsDetails();
 		}
 		System.out.println(numberOfContacts()+" contacts found");
-		}
+	}
 }

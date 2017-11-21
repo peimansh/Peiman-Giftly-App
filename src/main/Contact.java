@@ -12,6 +12,7 @@ public class Contact implements Serializable {
 	ArrayList<Event> events;
 	private String contactN;
 	private Random randomGenerator;
+	
 	/**making a contact object.
 	 * 
 	 * @param contactN
@@ -62,7 +63,7 @@ public class Contact implements Serializable {
 	 * print the List of interests of the contact
 	 * @throws IOException 
 	 */
-	public void getInterestsList() throws IOException {
+	public void getInterestsList() {
 			System.out.println("Write the number of the Interest you want to delete:");
 		for (int i=0; i<wishlist.size(); i++) {
 			Wish wish= wishlist.get(i);
@@ -78,7 +79,11 @@ public class Contact implements Serializable {
 		events.remove(index);
 	}
 	
-	public void getEventList () throws IOException {
+	public Event getEvent(int index) {
+		return events.get(index);
+	}
+	
+	public void getEventList () {
 		for (int i=0; i<events.size(); i++) {
 			Event event= events.get(i);
 			System.out.println(i+1 +" - "+ event.getDescription()+" - Date: "+event.getDate()+" - Address: "+event.getAddress());

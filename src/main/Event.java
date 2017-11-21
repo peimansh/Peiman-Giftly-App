@@ -53,7 +53,7 @@ public class Event implements Serializable {
 		/**
 		 * Print the details of an event.
 		 */
-		return ("The event : ("+description+") is on : "+date+" and the address is : "+address+".");
+		return ("The event : \""+description+"\" is on : "+date+" and the address is : \""+address+"\"");
 	}
 
 	public void changeDescription(String newdescription) {
