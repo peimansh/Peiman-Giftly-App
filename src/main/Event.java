@@ -11,10 +11,13 @@ public class Event implements Serializable {
 	private String description;
 	private Date date;
 	private String address;
-	private Date currentdate;
+	private long currentdate;
 	
 	public Event (String description, Date date, String address) {
 		setDetails(description, date, address);
+		
+		
+		
 		Toolkit.getDefaultToolkit();
 		new Timer();
 	}
@@ -37,7 +40,7 @@ public class Event implements Serializable {
 		this.address = address;
 	}
 
-	public String getDescription() {
+	public String getDescription(  ) {
 		return description;
 	}
 
@@ -68,13 +71,15 @@ public class Event implements Serializable {
 		this.address = newaddress;
 	}
 	
-	public long getDateDifference(Date date) {
-		this.date = date;
-		long difference = (date.getTime()- currentdate.getTime());
+	public long getDateDifference() {
+		//this.date = date;
+		currentdate= System.currentTimeMillis();
+		long difference = (date.getTime()- currentdate);
 		return difference;
 	}
 	
-	public void getReminder(Date date) {
-		Reminder reminder = new Reminder(getDateDifference(date));
+	public boolean getReminder() {
+		Reminder reminder = new Reminder(getDateDifference());
+		return reminder.remid();
 	}
 }

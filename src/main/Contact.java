@@ -64,7 +64,6 @@ public class Contact implements Serializable {
 	 * @throws IOException 
 	 */
 	public void getInterestsList() {
-			System.out.println("Write the number of the Interest you want to delete:");
 		for (int i=0; i<wishlist.size(); i++) {
 			Wish wish= wishlist.get(i);
 			System.out.println(i+1 +" - "+ wish.getWishName()+" - Price: "+wish.getWishPrice());
@@ -81,6 +80,9 @@ public class Contact implements Serializable {
 	
 	public Event getEvent(int index) {
 		return events.get(index);
+	}
+	public ArrayList<Event> getAllEvents() {
+		return events;
 	}
 	
 	public void getEventList () {
@@ -132,6 +134,8 @@ public class Contact implements Serializable {
 	
 	public void getRandomInterest() {
 		int index = randomGenerator.nextInt(wishlist.size());
-		System.out.println("Random Suggestor, suggests you to buy: "+wishlist.get(index).getWishName()+" and its estimated price is: "+wishlist.get(index).getWishPrice());
+		System.out.println("Random Suggestor for \""+getContactN()+"\", suggests you to buy: "+wishlist.get(index).getWishName()+" and its estimated price is: "+wishlist.get(index).getWishPrice()+"\n");
 	}
+	
+
 }

@@ -14,19 +14,32 @@ package main;
 	  Contact contact;
 	  Timer timer;
 
+	  private long timediff;
+	  
 	  public Reminder(long l) {
-	    toolkit = Toolkit.getDefaultToolkit();
+		  /* toolkit = Toolkit.getDefaultToolkit();
 	    timer = new Timer();
 	    timer.schedule(new RemindTask(), l);
+	    */
+	   timediff = l; 
+	    
 	  }
-
+	  public boolean remid(){
+	  if(timediff<86400000) {
+	    	return true;
+	    }
+	  return false;
+	  }
+	  /*
 	  class RemindTask extends TimerTask {
 	    public void run() {
 	      contact.getRandomInterest();
 	      toolkit.beep();
 	      timer.cancel(); //Not necessary because we call System.exit
-	    }
-	  }
+	    }}*/
+	  
+	  
+	  
 
 	 
 	  {

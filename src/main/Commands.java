@@ -43,11 +43,14 @@ public class Commands implements Serializable {
 		System.out.println("6- Search");
 		System.out.println("7- Save the info to a file");
 		System.out.println("8- Load the info from file");
-		System.out.println("9- Quit");
-		while (b) {
+		System.out.println("9- Check if events exist in the next 24 hours and get suggestion");
+		System.out.println("10- Quit");
+		
+		
+				while (b) {
 			try {
 				int readerInt = Integer.parseInt(reader.nextLine());
-				if (readerInt>0 && readerInt<10) {
+				if (readerInt>0 && readerInt<11) {
 					b = false;
 					if(readerInt==1){
 						addContactMsg() ;
@@ -74,14 +77,18 @@ public class Commands implements Serializable {
 						loadProcess();
 					}
 					else if(readerInt==9){
+						getReminder();
+					}
+					else if(readerInt==10){
 						System.exit(0);
 					}
+					
 				}
 				else {
-					System.out.println(readerInt + " Isn't a valid option... please enter a number between 1 and 9");
+					System.out.println(readerInt + " Isn't a valid option... please enter a number between 1 and 10");
 				}
 				} catch (NumberFormatException e) {
-					System.out.println("Enter a number between 1 to 9 please...");
+					System.out.println("Enter a number between 1 to 10 please...");
 					anotherWelcomeMsg();
 				}
 		}        
@@ -129,8 +136,10 @@ public class Commands implements Serializable {
                             System.out.println("Enter the date of the event (dd mm yyyy):");
                             String date1 = reader.nextLine();
                             date = mydateformat.parse(date1);
-                        	} catch (ParseException e) {
-                            e.printStackTrace();
+                        	} 
+                        catch (ParseException e) {
+                            System.out.println("Please enter a valid date");
+                        	continue;
                         	}
                     	System.out.println("Enter the address of the event");
                     	String address = reader.nextLine();
@@ -201,7 +210,7 @@ public class Commands implements Serializable {
 							break;
 						}
 						System.out.println("What do you want to do with this contact ?");
-						System.out.println("1- Change name of the contact\n2- Modify Interests\n3- Modify Events\n4- Go to main page");
+						System.out.println("1- Change name of the contact\n2- Add Interests\n3- Delete Interests\n4- Add Events\n5- Delete Events\n6- Go to Main page");
 						c = false;
 					int readerInt = Integer.parseInt(reader.nextLine());
 					switch(readerInt) {
@@ -221,8 +230,27 @@ public class Commands implements Serializable {
                 		}
 					}
                 	case 2: {
+                		System.out.println("Enter the description of the interest item:");
+                    	String wishname  = reader.nextLine();
+                    	System.out.println("Enter the estimated price of the item:");
+                    	String price = reader.nextLine();
+                    	int wishprice = Integer.parseInt(price);
+                    	contacts.get(input-1).addWish(wishname, wishprice);
+                    	System.out.println("Interest successfully added for the contact");
+                		System.out.println("Do you want to further modify this contact? Y/N");
+                		String s2 = reader.nextLine().trim().toLowerCase();
+                		if (s2.equals("y")) {
+                			c = true;
+                			break;
+                		}else if(s2.equals("n")) {
+                			c = false;
+                			modifyContactMsg();
+                			break;
+                		}
+                	}
+                	case 3: {
                 		if(contacts.get(input-1).wishlist.size() == 0) {
-                			System.out.println("There is no interest to modify !");
+                			System.out.println("There is no interest to delete !");
                 			break;
                 		}
                 		System.out.println("Which Interest do you want to delete?");
@@ -236,19 +264,19 @@ public class Commands implements Serializable {
                 			continue;
                 		}
                 		System.out.println("Interest successfully removed.\nDo you want to further modify this contact? Y/N");
-                		String s2 = reader.nextLine().trim().toLowerCase();
-                		if (s2.equals("y")) {
+                		String s21 = reader.nextLine().trim().toLowerCase();
+                		if (s21.equals("y")) {
                 			c = true;
                 			break;
-                		}else if(s2.equals("n")) {
+                		}else if(s21.equals("n")) {
                 			c = false;
                 			modifyContactMsg();
                 			break;
                 		}
                 	}
-                	case 3: {
+                	case 4: {
                 		if(contacts.get(input-1).events.size() == 0) {
-                			System.out.println("There is no event to modify !");
+                			System.out.println("There is no event to delete !");
                 			break;
                 		}
                 		System.out.println("Which Event do you want to delete?");
@@ -262,17 +290,46 @@ public class Commands implements Serializable {
                 			continue;
                 		}
                 		System.out.println("Event successfully removed.\nDo you want to further modify this contact? Y/N");
-                		String s2 = reader.nextLine().trim().toLowerCase();
-                		if (s2.equals("y")) {
+                		String s21 = reader.nextLine().trim().toLowerCase();
+                		if (s21.equals("y")) {
                 			c = true;
                 			break;
-                		}else if(s2.equals("n")) {
+                		}else if(s21.equals("n")) {
                 			c = false;
                 			modifyContactMsg();
                 			break;
                 		}
                 	}
-                	case 4: {
+                	case 5: {
+                		if(contacts.get(input-1).events.size() == 0) {
+                			System.out.println("There is no event to delete !");
+                			break;
+                		}
+                		System.out.println("Which Event do you want to delete?");
+                		contacts.get(input-1).getEventList();
+                		int readerInt2 = Integer.parseInt(reader.nextLine());
+                		try {
+                			contacts.get(input-1).removeEvent(readerInt2-1);
+                		}
+                		catch (IndexOutOfBoundsException e) {
+                			System.out.println("Enter a valid number");
+                			continue;
+                		}
+                		System.out.println("Event successfully removed.\nDo you want to further modify this contact? Y/N");
+                		String s21 = reader.nextLine().trim().toLowerCase();
+                		if (s21.equals("y")) {
+                			c = true;
+                			break;
+                		}else if(s21.equals("n")) {
+                			c = false;
+                			modifyContactMsg();
+                			break;
+                		}
+                		
+                		
+                		
+                	}
+                	case 6: {
                 		anotherWelcomeMsg();
                 		break;
                 	}
@@ -369,7 +426,7 @@ public class Commands implements Serializable {
 	
 	public void saveProcess() throws IOException {
 		try{
-			FileOutputStream saveOut = new FileOutputStream("C:\\Users\\Pemi\\Desktop\\savedinfo.txt");
+			FileOutputStream saveOut = new FileOutputStream("/afs/kth.se/home/tmp/1016/tmp-sda-1130/eclipse-workspace/p2/savedinfo.ser");
 	        ObjectOutputStream save = new ObjectOutputStream(saveOut);
 	        save.writeObject(contacts);
 	        save.close();
@@ -384,7 +441,7 @@ public class Commands implements Serializable {
 	
 	public void loadProcess() throws IOException {
 		try{
-	        FileInputStream loadIn = new FileInputStream("C:\\\\Users\\\\Pemi\\\\Desktop\\\\savedinfo.txt");
+	        FileInputStream loadIn = new FileInputStream("/afs/kth.se/home/tmp/1016/tmp-sda-1130/eclipse-workspace/p2/savedinfo.ser");
 	        ObjectInputStream load = new ObjectInputStream(loadIn);
 	        try {
 	             contacts = (ArrayList<Contact>) load.readObject();
@@ -430,6 +487,26 @@ public class Commands implements Serializable {
 		System.out.println("Press any key to go the main page");
 		reader.nextLine();
 		anotherWelcomeMsg();
+	}
+	
+	public void getReminder() throws IOException {
+		if(contacts.size()==0) {
+			System.out.println("There is no contact in the application!");
+			anotherWelcomeMsg();
+		}
+		for (Contact contact:contacts) {
+			for(Event eveObj : contact.getAllEvents()){
+				if(eveObj.getReminder()){
+					if (contact.wishlist.size()==0) {
+						System.out.println("There exists an event for the contact: \""+contact.getContactN()+"\" but there are no interests added!");
+						System.out.println(eveObj.getEventDetails());
+					}
+				}
+				System.out.println(eveObj.getEventDetails());
+				contact.getRandomInterest();
+				anotherWelcomeMsg();
+			}
+		}
 	}
 
 	public void testWish() {
