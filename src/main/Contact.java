@@ -145,6 +145,7 @@ public class Contact implements Serializable {
 	 * goes through all of the events of all of the contacts and will act depended on the situation .
 	 */
 	public void ifEvent24() {
+		boolean a = true;
 		for (int i=0; i<events.size(); i++) {
 			Event event= events.get(i);
 			if (wishlist.size()==0 && events.size()!=0 && event.getReminder()) {
@@ -152,10 +153,14 @@ public class Contact implements Serializable {
 				break;
 			}
 			if (event.getReminder() && wishlist.size()!=0) {
+				a = false;
 				System.out.println(event.getEventDetails());
 				getRandomInterest();
 				break;
 			}
+		}
+		if (a) {
+			System.out.println("There is no event in the next 24 hours!");
 		}
 	}
 	
