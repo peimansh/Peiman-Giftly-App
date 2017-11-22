@@ -17,7 +17,7 @@ public class Commands implements Serializable {
 	private Scanner reader;
 	private Contact contact;
 	private ArrayList<Contact> contacts;
-
+	
 	public Commands() {
 		contacts = new ArrayList<>();
     	reader = new Scanner(System.in);
@@ -77,7 +77,7 @@ public class Commands implements Serializable {
 						loadProcess();
 					}
 					else if(readerInt==9){
-						getReminder();
+						getReminderMsg();
 					}
 					else if(readerInt==10){
 						System.exit(0);
@@ -186,7 +186,8 @@ public class Commands implements Serializable {
 	}
 	
 	public void modifyContactMsg() throws IOException {
-			if (contacts.size()==0) {
+		Date date = null;	
+		if (contacts.size()==0) {
 			System.out.println("There is no contact to modify !");
 			anotherWelcomeMsg();
 			}
@@ -275,26 +276,28 @@ public class Commands implements Serializable {
                 		}
                 	}
                 	case 4: {
-                		if(contacts.get(input-1).events.size() == 0) {
-                			System.out.println("There is no event to delete !");
-                			break;
-                		}
-                		System.out.println("Which Event do you want to delete?");
-                		contacts.get(input-1).getEventList();
-                		int readerInt2 = Integer.parseInt(reader.nextLine());
-                		try {
-                			contacts.get(input-1).removeEvent(readerInt2-1);
-                		}
-                		catch (IndexOutOfBoundsException e) {
-                			System.out.println("Enter a valid number");
-                			continue;
-                		}
-                		System.out.println("Event successfully removed.\nDo you want to further modify this contact? Y/N");
-                		String s21 = reader.nextLine().trim().toLowerCase();
-                		if (s21.equals("y")) {
+                		System.out.println("Enter the description of the event");
+                    	String description = reader.nextLine();
+                    	SimpleDateFormat mydateformat = new SimpleDateFormat("dd MM yyyy");
+                        try {
+                            System.out.println("Enter the date of the event (dd mm yyyy):");
+                            String date1 = reader.nextLine();
+                            date = mydateformat.parse(date1);
+                        	} 
+                        catch (ParseException e) {
+                            System.out.println("Please enter a valid date");
+                        	continue;
+                        	}
+                    	System.out.println("Enter the address of the event");
+                    	String address = reader.nextLine();
+                    	contacts.get(input-1).addEvent(description, date, address);
+                    	System.out.println("Event successfully added for the contact");
+                    	System.out.println("Do you want to further modify this contact? Y/N");
+                		String s2 = reader.nextLine().trim().toLowerCase();
+                		if (s2.equals("y")) {
                 			c = true;
                 			break;
-                		}else if(s21.equals("n")) {
+                		}else if(s2.equals("n")) {
                 			c = false;
                 			modifyContactMsg();
                 			break;
@@ -324,10 +327,7 @@ public class Commands implements Serializable {
                 			c = false;
                 			modifyContactMsg();
                 			break;
-                		}
-                		
-                		
-                		
+                		}	
                 	}
                 	case 6: {
                 		anotherWelcomeMsg();
@@ -426,7 +426,7 @@ public class Commands implements Serializable {
 	
 	public void saveProcess() throws IOException {
 		try{
-			FileOutputStream saveOut = new FileOutputStream("/afs/kth.se/home/tmp/1016/tmp-sda-1130/eclipse-workspace/p2/savedinfo.ser");
+			FileOutputStream saveOut = new FileOutputStream("C:\\Users\\Pemi\\Desktop\\savedinfo.txt");
 	        ObjectOutputStream save = new ObjectOutputStream(saveOut);
 	        save.writeObject(contacts);
 	        save.close();
@@ -441,7 +441,7 @@ public class Commands implements Serializable {
 	
 	public void loadProcess() throws IOException {
 		try{
-	        FileInputStream loadIn = new FileInputStream("/afs/kth.se/home/tmp/1016/tmp-sda-1130/eclipse-workspace/p2/savedinfo.ser");
+	        FileInputStream loadIn = new FileInputStream("C:\\Users\\Pemi\\Desktop\\savedinfo.txt");
 	        ObjectInputStream load = new ObjectInputStream(loadIn);
 	        try {
 	             contacts = (ArrayList<Contact>) load.readObject();
@@ -489,24 +489,15 @@ public class Commands implements Serializable {
 		anotherWelcomeMsg();
 	}
 	
-	public void getReminder() throws IOException {
+	public void getReminderMsg() throws IOException {
 		if(contacts.size()==0) {
 			System.out.println("There is no contact in the application!");
 			anotherWelcomeMsg();
 		}
 		for (Contact contact:contacts) {
-			for(Event eveObj : contact.getAllEvents()){
-				if(eveObj.getReminder()){
-					if (contact.wishlist.size()==0) {
-						System.out.println("There exists an event for the contact: \""+contact.getContactN()+"\" but there are no interests added!");
-						System.out.println(eveObj.getEventDetails());
-					}
-				}
-				System.out.println(eveObj.getEventDetails());
-				contact.getRandomInterest();
-				anotherWelcomeMsg();
-			}
+			contact.ifEvent24();
 		}
+		anotherWelcomeMsg();
 	}
 
 	public void testWish() {

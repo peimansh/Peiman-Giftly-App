@@ -81,6 +81,7 @@ public class Contact implements Serializable {
 	public Event getEvent(int index) {
 		return events.get(index);
 	}
+	
 	public ArrayList<Event> getAllEvents() {
 		return events;
 	}
@@ -132,10 +133,22 @@ public class Contact implements Serializable {
 		}
 	}
 	
+	public void ifEvent24() {
+		for (int i=0; i<events.size(); i++) {
+			Event event= events.get(i);
+			if (wishlist.size()==0 && events.size()!=0 && event.getReminder()) {
+				System.out.println("There exists an event for the contact: \""+getContactN()+"\" but there are no interests added!");
+			}
+			if (event.getReminder() && wishlist.size()!=0) {
+				System.out.println(event.getEventDetails());
+				getRandomInterest();
+				break;
+			}
+		}
+	}
+	
 	public void getRandomInterest() {
 		int index = randomGenerator.nextInt(wishlist.size());
 		System.out.println("Random Suggestor for \""+getContactN()+"\", suggests you to buy: "+wishlist.get(index).getWishName()+" and its estimated price is: "+wishlist.get(index).getWishPrice()+"\n");
 	}
-	
-
 }

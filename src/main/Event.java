@@ -2,9 +2,6 @@ package main;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.Timer;
-import java.util.TimerTask;
-import java.awt.Toolkit;
 
 
 public class Event implements Serializable {
@@ -15,11 +12,6 @@ public class Event implements Serializable {
 	
 	public Event (String description, Date date, String address) {
 		setDetails(description, date, address);
-		
-		
-		
-		Toolkit.getDefaultToolkit();
-		new Timer();
 	}
 	
 	public void setDetails(String description, Date date, String address) {
@@ -72,14 +64,14 @@ public class Event implements Serializable {
 	}
 	
 	public long getDateDifference() {
-		//this.date = date;
-		currentdate= System.currentTimeMillis();
-		long difference = (date.getTime()- currentdate);
+		currentdate = System.currentTimeMillis();
+		long difference = (currentdate - date.getTime());
+		//long difference = (date.getTime() - currentdate);
 		return difference;
 	}
 	
 	public boolean getReminder() {
 		Reminder reminder = new Reminder(getDateDifference());
-		return reminder.remid();
+		return reminder.remind();
 	}
 }
