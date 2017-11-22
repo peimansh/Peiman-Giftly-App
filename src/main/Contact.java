@@ -149,6 +149,7 @@ public class Contact implements Serializable {
 			Event event= events.get(i);
 			if (wishlist.size()==0 && events.size()!=0 && event.getReminder()) {
 				System.out.println("There exists an event for the contact: \""+getContactN()+"\" but there are no interests added!");
+				break;
 			}
 			if (event.getReminder() && wishlist.size()!=0) {
 				System.out.println(event.getEventDetails());
