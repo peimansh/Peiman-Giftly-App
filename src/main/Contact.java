@@ -6,7 +6,11 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Random;
 
-
+/**
+ * 
+ * @author Pemi
+ *The contact class contains an ArrayList of interests name wishlist, an ArrayList of events and name for the contact.
+ */
 public class Contact implements Serializable {
 	ArrayList<Wish> wishlist;
 	ArrayList<Event> events;
@@ -15,7 +19,7 @@ public class Contact implements Serializable {
 	
 	/**making a contact object.
 	 * 
-	 * @param contactN
+	 * @param contactN : Contact Name
 	 */
 	public Contact(String contactN) {
 		wishlist = new ArrayList<>();
@@ -114,6 +118,8 @@ public class Contact implements Serializable {
 	
 	/**
 	 * returns contacts details with the index number beside them.
+	 * it is used when it is needed to show number of contacts near them 
+	 * so the user can write the number of them for further modification and use
 	 */
 	public void getContactsDetails2(){
 		System.out.println("Contact: "+contactN);
@@ -133,6 +139,11 @@ public class Contact implements Serializable {
 		}
 	}
 	
+	/**
+	 * this method handles the processes which are needed to determine if an event exists for today and
+	 * next 24 hours or not.
+	 * goes through all of the events of all of the contacts and will act depended on the situation .
+	 */
 	public void ifEvent24() {
 		for (int i=0; i<events.size(); i++) {
 			Event event= events.get(i);
@@ -147,6 +158,10 @@ public class Contact implements Serializable {
 		}
 	}
 	
+	/**
+	 * randomly chooses in interest of the contact to make a random suggestion to the user
+	 * based on the contact interests
+	 */
 	public void getRandomInterest() {
 		int index = randomGenerator.nextInt(wishlist.size());
 		System.out.println("Random Suggestor for \""+getContactN()+"\", suggests you to buy: "+wishlist.get(index).getWishName()+" and its estimated price is: "+wishlist.get(index).getWishPrice()+"\n");

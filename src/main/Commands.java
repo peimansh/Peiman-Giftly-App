@@ -12,7 +12,13 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.io.ObjectInputStream;
 
-
+/**
+ * 
+ * @author Pemi
+ *This class contains all the commands to interact with the user
+ *it is used to get the input from the user to create, manage, modify, check the status of the events, get a suggestion
+ *without the event being in the next 24 hours etc..
+ */
 public class Commands implements Serializable {
 	private Scanner reader;
 	private Contact contact;
@@ -23,6 +29,11 @@ public class Commands implements Serializable {
     	reader = new Scanner(System.in);
 	}
 	
+	/**
+	 * the main welcome screen with info about the app and some instruction
+	 * this is only shown once when the app starts.
+	 * @throws IOException
+	 */
 	public void welcomeMsg() throws IOException {	
 		System.out.println("Welcome to the Gift Management app \"Giftly\" .");
 		System.out.println("This App let's you add your loved ones as contacts to the application and add ");
@@ -32,6 +43,10 @@ public class Commands implements Serializable {
 		anotherWelcomeMsg();
 	}
 	
+	/**
+	 * the main welcome screen which includes the main menu options
+	 * @throws IOException
+	 */
 	public void anotherWelcomeMsg() throws IOException{	
 		boolean b = true;
 		System.out.println("Use these numbers to begin :");
@@ -45,7 +60,6 @@ public class Commands implements Serializable {
 		System.out.println("8- Load the info from file");
 		System.out.println("9- Check if events exist in the next 24 hours and get suggestion");
 		System.out.println("10- Quit");
-		
 		
 				while (b) {
 			try {
@@ -458,6 +472,10 @@ public class Commands implements Serializable {
 	            anotherWelcomeMsg();
 	}
 	
+	/**
+	 * this method suggests
+	 * @throws IOException
+	 */
 	public void randomSuggestorMsg() throws IOException {
 		if (contacts.size()==0) {
 			System.out.println("There is no contact stored in the app");
@@ -473,19 +491,27 @@ public class Commands implements Serializable {
 								System.out.println("You entered an invalid number");
 								randomSuggestorMsg();
 		}
-		System.out.println("Write the number of the event that you want to get suggestion for:");
-		contacts.get(readerInt1-1).getEventList();
-		int readerInt2 = Integer.parseInt(reader.nextLine().trim());
-		try {
-			contacts.get(readerInt1-1).getEvent(readerInt2-1);
+		if (contacts.get(readerInt1-1).wishlist.size()==0) {
+			System.out.println("There is no interest added for this contact so , No Suggestion !");
+			anotherWelcomeMsg();
 		}
-		catch (IndexOutOfBoundsException e) {
-								System.out.println("You entered an invalid number");
-								randomSuggestorMsg();
+		if (contacts.get(readerInt1-1).events.size() !=0) {
+			System.out.println("Write the number of the event that you want to get suggestion for:");
+			contacts.get(readerInt1-1).getEventList();
+			int readerInt2 = Integer.parseInt(reader.nextLine().trim());
+			try {
+				contacts.get(readerInt1-1).getEvent(readerInt2-1);
+			}
+			catch (IndexOutOfBoundsException e) {
+									System.out.println("You entered an invalid number");
+									randomSuggestorMsg();
+			}
+			contacts.get(readerInt1-1).getRandomInterest();
+			System.out.println("Press any key to go the main page");
+			reader.nextLine();
+			anotherWelcomeMsg();
 		}
-		contacts.get(readerInt1-1).getRandomInterest();
-		System.out.println("Press any key to go the main page");
-		reader.nextLine();
+		System.out.println("No events exist for this contact");
 		anotherWelcomeMsg();
 	}
 	

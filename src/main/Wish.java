@@ -1,7 +1,12 @@
 package main;
 
 import java.io.Serializable;
-
+/**
+ * 
+ * @author Pemi
+ * This class represents interests of a contact
+ * it contains a description and an estimated price for the interest
+ */
 public class Wish implements Serializable {
 	private String wishname;
 	private int wishprice;

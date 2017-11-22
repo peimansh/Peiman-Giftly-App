@@ -3,7 +3,13 @@ package main;
 import java.io.Serializable;
 import java.util.Date;
 
-
+/**
+ * 
+ * @author Pemi
+ *This class defines an event for a contact.
+ *it contains description, date of event ( it uses the default 00:00:00 as time for the event) , and address ( which is
+ *just an info about the event, will be used for future features).
+ */
 public class Event implements Serializable {
 	private String description;
 	private Date date;
@@ -63,13 +69,19 @@ public class Event implements Serializable {
 		this.address = newaddress;
 	}
 	
+	/**
+	 * gets the difference between current date of machine and the given date
+	 * it will be used to check if there exists an event in the next 24 hours.
+	 */
 	public long getDateDifference() {
 		currentdate = System.currentTimeMillis();
 		long difference = (currentdate - date.getTime());
-		//long difference = (date.getTime() - currentdate);
 		return difference;
 	}
 	
+	/**
+	 * boolean which returns true only if the date of the event is in the range of today or next 24 hours.
+	 */
 	public boolean getReminder() {
 		Reminder reminder = new Reminder(getDateDifference());
 		return reminder.remind();
