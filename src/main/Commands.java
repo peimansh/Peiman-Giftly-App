@@ -527,7 +527,7 @@ public class Commands implements Serializable {
 	}
 
 	public void testWish() {
-		Wish w = new Wish("dashagh", 20);
+		Wish w = new Wish("something", 20);
 		System.out.println(w.getWishDetails());
 	}
 	
