@@ -523,6 +523,7 @@ public class Commands implements Serializable {
 		for (Contact contact:contacts) {
 			contact.ifEvent24();
 		}
+		System.out.println("There is no event in the next 24 hours");
 		anotherWelcomeMsg();
 	}
 
