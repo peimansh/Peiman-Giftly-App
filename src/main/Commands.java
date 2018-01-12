@@ -108,6 +108,7 @@ public class Commands implements Serializable {
 		}        
 	}
 
+	//Method for adding contacts by getting the data from the user and input them into the app
 	public void addContactMsg() throws IOException {
 		Date date = null;
 		System.out.println("Enter the name of the contact:");
@@ -178,6 +179,7 @@ public class Commands implements Serializable {
 			}
 		}
 	
+	//Method for deleting a contact, first shows the list of all contacts and then the user can delete a specific contact
 	public void deleteContactMsg() throws IOException {
 			if (contacts.size()==0) {
 			System.out.println("There is no contact to delete !");
@@ -199,6 +201,7 @@ public class Commands implements Serializable {
 		}
 	}
 	
+	//Method for modifying a contact, such as event edits or interests edits
 	public void modifyContactMsg() throws IOException {
 		Date date = null;	
 		if (contacts.size()==0) {
@@ -360,6 +363,7 @@ public class Commands implements Serializable {
 			}
 	}
 	
+	//viewing list of all contacts
 	public void listOfContactsMsg() throws IOException {
 		if (contacts.size()==0) {
 			System.out.println("There is no contact to show !");
@@ -404,6 +408,7 @@ public class Commands implements Serializable {
 		}
 	}
 	
+	//method for searching the contacts and viewing information about them
 	public void searchContactMsg() throws IOException {
 		System.out.println("Enter the name of the contact you want to search:");
 		String search = reader.nextLine().trim();
@@ -438,6 +443,7 @@ public class Commands implements Serializable {
 			anotherWelcomeMsg();
 	}
 	
+	//Method for saving the data inserted by the user into a text file loadable by the app later
 	public void saveProcess() throws IOException {
 		try{
 			FileOutputStream saveOut = new FileOutputStream("C:\\Users\\Pemi\\Desktop\\savedinfo.txt");
@@ -453,6 +459,7 @@ public class Commands implements Serializable {
 	        anotherWelcomeMsg();
 	}
 	
+	//method for loading the saved file and data into the app again
 	public void loadProcess() throws IOException {
 		try{
 	        FileInputStream loadIn = new FileInputStream("C:\\Users\\Pemi\\Desktop\\savedinfo.txt");
@@ -473,7 +480,7 @@ public class Commands implements Serializable {
 	}
 	
 	/**
-	 * this method suggests
+	 * this method suggests randomly an interest from the user to be bought for an event
 	 * @throws IOException
 	 */
 	public void randomSuggestorMsg() throws IOException {
@@ -515,6 +522,7 @@ public class Commands implements Serializable {
 		anotherWelcomeMsg();
 	}
 	
+	//Checking if an event exists in the next 24 hours or not
 	public void getReminderMsg() throws IOException {
 		if(contacts.size()==0) {
 			System.out.println("There is no contact in the application!");
