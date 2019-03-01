@@ -446,7 +446,7 @@ public class Commands implements Serializable {
 	//Method for saving the data inserted by the user into a text file loadable by the app later
 	public void saveProcess() throws IOException {
 		try{
-			FileOutputStream saveOut = new FileOutputStream("C:\\Users\\Pemi\\Desktop\\savedinfo.txt");
+			FileOutputStream saveOut = new FileOutputStream("savedInfo");
 	        ObjectOutputStream save = new ObjectOutputStream(saveOut);
 	        save.writeObject(contacts);
 	        save.close();
@@ -462,7 +462,7 @@ public class Commands implements Serializable {
 	//method for loading the saved file and data into the app again
 	public void loadProcess() throws IOException {
 		try{
-	        FileInputStream loadIn = new FileInputStream("C:\\Users\\Pemi\\Desktop\\savedinfo.txt");
+	        FileInputStream loadIn = new FileInputStream("savedInfo");
 	        ObjectInputStream load = new ObjectInputStream(loadIn);
 	        try {
 	             contacts = (ArrayList<Contact>) load.readObject();
